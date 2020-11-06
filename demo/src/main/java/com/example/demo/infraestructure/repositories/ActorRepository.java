@@ -8,4 +8,5 @@ import com.example.demo.domain.entities.Actor;
 
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	List<Actor> findByFirstNameStartingWithOrderByLastNameDesc(String prefijo);
+	<T> List<T> findByActorIdNotNull(Class<T> type);
 }

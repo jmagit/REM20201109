@@ -2,6 +2,11 @@ package com.example.demo.domain.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -17,12 +22,15 @@ public class Actor implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="actor_id")
+	@JsonProperty("id")
 	private int actorId;
 
 	@Column(name="first_name")
+	@NotNull
 	private String firstName;
 
 	@Column(name="last_name")
+	@NotNull
 	private String lastName;
 
 	@Column(name="last_update")
@@ -30,6 +38,7 @@ public class Actor implements Serializable {
 
 	//bi-directional many-to-one association to FilmActor
 	@OneToMany(mappedBy="actor")
+	@JsonIgnore
 	private List<FilmActor> filmActors;
 
 	public Actor() {

@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.entities.Actor;
+import com.example.demo.domain.entities.dtos.ActorDTO;
+import com.example.demo.domain.entities.dtos.ActorShort;
 import com.example.demo.infraestructure.repositories.ActorRepository;
 
 import lombok.Data;
@@ -31,13 +33,18 @@ public class DemoApplication implements CommandLineRunner {
 		
 		// dao.findAll().stream().forEach(a -> System.out.println(a));
 		// dao.findByFirstNameStartingWithOrderByLastNameDesc("P").stream().forEach(a -> System.out.println(a));
-		Optional<Actor> rslt = dao.findById(54);
-		if(rslt.isPresent()) {
-			Actor actor = rslt.get();
-			System.out.println(actor);
-			actor.getFilmActors().stream().forEach(o -> System.out.println(o.getFilm()));
-			// dao.findById(54).get().getFilmActors().stream().forEach(o -> System.out.println(o.getFilm()));
-		}
+//		Optional<Actor> rslt = dao.findById(54);
+//		if(rslt.isPresent()) {
+//			Actor actor = rslt.get();
+//			System.out.println(actor);
+//			actor.getFilmActors().stream().forEach(o -> System.out.println(o.getFilm()));
+//			// dao.findById(54).get().getFilmActors().stream().forEach(o -> System.out.println(o.getFilm()));
+//		}
+//		dao.findAll().stream().forEach(a -> System.out.println(ActorDTO.from(a)));
+		// dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(a));
+		// dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(ActorDTO.from(a)));
+		// dao.findByActorIdNotNull(ActorShort.class).stream().forEach(a -> System.out.println(a.getNombreCompleto()));
+		dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(a.getNombreCompleto()));
 	}
 
 }
