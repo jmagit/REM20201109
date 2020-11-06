@@ -2,10 +2,13 @@ package com.example.demo.domain.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 
+import com.example.demo.domain.core.EntityBase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.NotNull;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.List;
  * 
  */
 @Entity
-public class Actor implements Serializable {
+public class Actor extends EntityBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -26,14 +29,17 @@ public class Actor implements Serializable {
 	private int actorId;
 
 	@Column(name="first_name")
-	@NotNull
+	@NotBlank
+	@Size(max = 45)
 	private String firstName;
 
 	@Column(name="last_name")
-	@NotNull
+	@NotBlank
+	@Size(max = 45)
 	private String lastName;
 
 	@Column(name="last_update")
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to FilmActor
@@ -131,5 +137,4 @@ public class Actor implements Serializable {
 		return "Actor [actorId=" + actorId + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 
-	
 }

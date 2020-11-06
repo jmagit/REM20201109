@@ -1,13 +1,21 @@
 package com.example.demo;
 
 import java.util.Optional;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.domain.contracts.ActorService;
+import com.example.demo.domain.core.EntityBase;
 import com.example.demo.domain.entities.Actor;
 import com.example.demo.domain.entities.dtos.ActorDTO;
 import com.example.demo.domain.entities.dtos.ActorShort;
@@ -26,6 +34,9 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	ActorRepository dao;
 	
+	@Autowired
+	ActorService srv;
+	
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
@@ -41,10 +52,20 @@ public class DemoApplication implements CommandLineRunner {
 //			// dao.findById(54).get().getFilmActors().stream().forEach(o -> System.out.println(o.getFilm()));
 //		}
 //		dao.findAll().stream().forEach(a -> System.out.println(ActorDTO.from(a)));
+		// dao.findAll(Sort.by("firstName", "lastName").descending()).stream().forEach(a -> System.out.println(a));
+		// dao.findAll(PageRequest.of(0, 10, Sort.by("firstName", "lastName").descending())).stream().forEach(a -> System.out.println(a));
 		// dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(a));
 		// dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(ActorDTO.from(a)));
 		// dao.findByActorIdNotNull(ActorShort.class).stream().forEach(a -> System.out.println(a.getNombreCompleto()));
-		dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(a.getNombreCompleto()));
+		// dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(a.getNombreCompleto()));
+		// srv.getAll().stream().forEach(a -> System.out.println(a));
+		// srv.getAllIn(ActorDTO.class, PageRequest.of(0, 10, Sort.by("firstName", "lastName").descending())).stream().forEach(a -> System.out.println(a));
+		Actor actor = new Actor();
+		if(actor.isInvalid())
+			actor.getErrors().stream().forEach(e -> System.out.println(e));
+//		srv.getErrors(actor).stream().forEach(e -> System.out.println(e));
+//		srv.add(actor);
+		
 	}
 
 }
