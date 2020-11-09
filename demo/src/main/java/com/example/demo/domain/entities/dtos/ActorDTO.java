@@ -1,5 +1,8 @@
 package com.example.demo.domain.entities.dtos;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import com.example.demo.domain.entities.Actor;
 
 import lombok.AllArgsConstructor;
@@ -9,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ActorDTO {
 	private int actorId;
+	@NotBlank
+	@Size(max = 45)
 	private String firstName;
 	private String lastName;
 
