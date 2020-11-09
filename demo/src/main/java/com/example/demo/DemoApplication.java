@@ -60,12 +60,14 @@ public class DemoApplication implements CommandLineRunner {
 		// dao.findByActorIdNotNull(ActorDTO.class).stream().forEach(a -> System.out.println(a.getNombreCompleto()));
 		// srv.getAll().stream().forEach(a -> System.out.println(a));
 		// srv.getAllIn(ActorDTO.class, PageRequest.of(0, 10, Sort.by("firstName", "lastName").descending())).stream().forEach(a -> System.out.println(a));
-		Actor actor = new Actor();
-		if(actor.isInvalid())
-			actor.getErrors().stream().forEach(e -> System.out.println(e));
+//		Actor actor = new Actor(1, "Pepito", "12345678S");
+//		if(actor.isInvalid())
+//			actor.getErrors().stream().forEach(e -> System.out.println(e));
+//		else 
+//			System.out.println("Es valido");
 //		srv.getErrors(actor).stream().forEach(e -> System.out.println(e));
 //		srv.add(actor);
-		
+//		dao.save(actor);
 	}
 
 }

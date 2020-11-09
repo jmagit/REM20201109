@@ -7,6 +7,7 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 import com.example.demo.domain.core.EntityBase;
+import com.example.demo.domain.core.validation.NIF;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -36,6 +37,7 @@ public class Actor extends EntityBase implements Serializable {
 	@Column(name="last_name")
 	@NotBlank
 	@Size(max = 45)
+//	@NIF
 	private String lastName;
 
 	@Column(name="last_update")

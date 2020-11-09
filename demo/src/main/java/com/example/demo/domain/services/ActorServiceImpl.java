@@ -38,6 +38,7 @@ public class ActorServiceImpl implements ActorService {
 	public boolean isInvalid(Actor item) {
 		return !isValid(item);
 	}
+	
 	@Override
 	public List<Actor> getAll() {
 		return dao.findAll();
@@ -82,6 +83,7 @@ public class ActorServiceImpl implements ActorService {
 		return dao.save(item);
 	}
 	@Override
+	@Transactional
 	public Actor modify(Actor item) throws NotFoundException, InvalidDataException {
 		if(isInvalid(item))
 			throw new InvalidDataException("Invalid data");
@@ -90,6 +92,7 @@ public class ActorServiceImpl implements ActorService {
 		return dao.save(item);
 	}
 	@Override
+	@Transactional
 	public void deleteById(Integer id) throws NotFoundException {
 		if(!getOne(id).isPresent())
 			throw new NotFoundException();
