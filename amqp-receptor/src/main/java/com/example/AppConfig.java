@@ -2,6 +2,8 @@ package com.example;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +26,7 @@ public class AppConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.example"))
 				.paths(PathSelectors.ant("/**")).build()
-				.apiInfo(new ApiInfoBuilder().title("Microservicio: AMPQ Receptor")
+				.apiInfo(new ApiInfoBuilder().title("Microservicio: AMQP Receptor")
 						.description("Monta diferentes escenacios para las pruebas de concepto de Microservicio.")
 						.version("1.0").license("Apache License Version 2.0")
 						.contact(new Contact("Yo Mismo", "http://www.example.com", "myeaddress@example.com")).build());
@@ -33,6 +35,11 @@ public class AppConfig {
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
+	}
+
+	@Bean
+	public MessageConverter jsonConverter() {
+		return new Jackson2JsonMessageConverter();
 	}
 
 	@RabbitListener(queues = "saludos")

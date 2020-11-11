@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.amqp.Message;
+import com.example.demo.amqp.Store;
+
 @RestController
 @RequestMapping(path = "/demos")
 public class DemosResource {
@@ -69,6 +72,11 @@ public class DemosResource {
 	    sb.append("nom: " + nom + "\n");
 	    sb.append("language: " + language + "\n");
 	    return sb.toString();
+	}
+
+	@GetMapping("/recibidos")
+	public List<Message> get() {
+		return Store.get();
 	}
 
 }

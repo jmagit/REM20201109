@@ -23,7 +23,9 @@ import com.example.demo.infraestructure.repositories.ActorRepository;
 
 import lombok.Data;
 import lombok.Value;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
+@EnableOpenApi
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 	
