@@ -29,10 +29,9 @@ public class DemosResource {
 		return "Adios " + nombre;
 	}
 
-	@GetMapping(path = "/params/{id}", params = {"nom=hola"})
+	@GetMapping(path = "/params/{id}", params = {"!nom"})
 	public String cotillaSpecial(
 	        @PathVariable String id,
-	        @RequestParam(required = false, defaultValue = "mundo") String nom,
 	        @RequestHeader("Accept-Language") String language) { 
 	    StringBuilder sb = new StringBuilder();
 	    sb.append("Demo params");

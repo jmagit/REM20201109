@@ -29,9 +29,9 @@ import com.example.demo.domain.entities.Actor;
 import com.example.demo.domain.entities.Film;
 import com.example.demo.domain.entities.dtos.ActorDTO;
 import com.example.demo.domain.entities.dtos.ActorShort;
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.InvalidDataException;
-import com.example.demo.exception.NotFoundException;
+import com.example.demo.exceptions.BadRequestException;
+import com.example.demo.exceptions.InvalidDataException;
+import com.example.demo.exceptions.NotFoundException;
 
 import org.springframework.http.HttpStatus;
 

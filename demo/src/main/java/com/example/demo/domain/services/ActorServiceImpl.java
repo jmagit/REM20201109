@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.contracts.ActorService;
 import com.example.demo.domain.entities.Actor;
-import com.example.demo.exception.InvalidDataException;
-import com.example.demo.exception.NotFoundException;
+import com.example.demo.exceptions.InvalidDataException;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.infraestructure.repositories.ActorRepository;
 
 @Service

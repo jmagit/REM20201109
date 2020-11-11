@@ -1,19 +1,21 @@
-package com.example.demo;
+package com.example.catalogo;
 
+import javax.annotation.processing.FilerException;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.example.demo.domain.entities.dtos.ErrorMessage;
+import com.example.catalogo.application.dtos.ErrorMessage;
 import com.example.demo.exceptions.BadRequestException;
 import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.exceptions.NotFoundException;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.http.HttpStatus;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -24,11 +26,21 @@ public class ApiExceptionHandler {
         return new ErrorMessage(exception.getMessage(), request.getRequestURI());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({ BadRequestException.class, InvalidDataException.class, MethodArgumentNotValidException.class
+    @ExceptionHandler({ BadRequestException.class, MissingRequestHeaderException.class,
+            FilerException.class, InvalidDataException.class, MethodArgumentNotValidException.class
 	})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorMessage badRequest(Exception exception) {
         return new ErrorMessage(exception.getMessage(), "");
     }
+    
+    @ExceptionHandler({ HttpMediaTypeNotAcceptableException.class
+	})
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseBody
+    public ErrorMessage badFormat(Exception exception) {
+        return new ErrorMessage("Formato no conocido", "");
+    }
+
 }
