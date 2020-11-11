@@ -134,6 +134,10 @@ public class FilmResource {
 	}
 
 	@ApiOperation(value = "Añadir una nueva pelicula")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Pelicula añadida"),
+		@ApiResponse(code = 404, message = "Pelicula no encontrada")
+	})
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<Object> add(@Valid @RequestBody FilmEditDTO item) throws Exception {
@@ -172,7 +176,7 @@ public class FilmResource {
 
 	@ApiOperation(value = "Borrar una pelicula existente")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "Pelicula encontrada"),
+		@ApiResponse(code = 204, message = "Pelicula borrada"),
 		@ApiResponse(code = 404, message = "Pelicula no encontrada")
 	})
 	@DeleteMapping(path = "/{id}")

@@ -2,6 +2,7 @@ package com.example.catalogo.domain.resources;
 
 import java.net.URI;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ import com.example.demo.exceptions.InvalidDataException;
 import com.example.demo.exceptions.NotFoundException;
 
 @RestController
-@RequestMapping(path = "/actores")
+@RequestMapping(path = "actores")
 public class ActorResource {
 	@Autowired
 	private ActorRepository dao;
@@ -46,7 +47,7 @@ public class ActorResource {
 	}
 	@GetMapping(path = "/nombres")
 	public List<NamesOnly> getAll() {
-		return dao.findByActorIdNotNull(NamesOnly.class);
+		return dao.getAll();
 	}
 
 

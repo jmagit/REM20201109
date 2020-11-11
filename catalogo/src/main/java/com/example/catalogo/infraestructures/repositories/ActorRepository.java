@@ -16,6 +16,6 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	<T> List<T> findByActorIdNotNull(Class<T> type);
 
 	@Query("from Actor")
-	Collection<NamesOnly> getAll();
+	List<NamesOnly> getAll();
 
 }
