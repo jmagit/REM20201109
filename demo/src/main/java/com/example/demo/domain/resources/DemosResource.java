@@ -3,6 +3,11 @@ package com.example.demo.domain.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeType;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.amqp.Message;
 import com.example.demo.amqp.Store;
+import com.example.demo.domain.entities.dtos.FilmShortDTO;
 
 @RestController
 @RequestMapping(path = "/demos")
@@ -32,6 +39,25 @@ public class DemosResource {
 		return "Adios " + nombre;
 	}
 
+	@Autowired
+	RestTemplate srv;
+	
+	@GetMapping(path="/pelis")
+	public List<FilmShortDTO> pelis() {
+		ResponseEntity<List<FilmShortDTO>> response = srv.exchange(
+				"http://localhost:8001/peliculas?mode=short", 
+				HttpMethod.GET,
+				HttpEntity.EMPTY, 
+				new ParameterizedTypeReference<List<FilmShortDTO>>() {
+				});
+		return response.getBody();
+	}
+	@GetMapping(path="/pelis/{id}")
+	public FilmShortDTO pelis(@PathVariable int id) {
+		return srv.getForObject("http://localhost:8001/peliculas/{id}?mode=short", FilmShortDTO.class, 1);
+//		return srv.getForObject("catalogo-service/peliculas/{id}?mode=short", FilmShortDTO.class, 1);
+	}
+	
 	@GetMapping(path = "/params/{id}", params = {"!nom"})
 	public String cotillaSpecial(
 	        @PathVariable String id,
