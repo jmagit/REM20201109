@@ -10,15 +10,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AmqpConfig {
-	@Bean
-	public MessageConverter jsonConverter() {
-		return new Jackson2JsonMessageConverter();
-	}
-
-	@RabbitListener(queues = "saludos")
-	public void listen(MessageDTO in) {
-		Store.add(new Message(in));
-		System.out.println("\n\n" + in + "\n");
-	}
+//	@Bean
+//	public MessageConverter jsonConverter() {
+//		return new Jackson2JsonMessageConverter();
+//	}
+//
+//	@RabbitListener(queues = "saludos")
+//	public void listen(MessageDTO in) {
+//		Store.add(new Message(in));
+//		System.out.println("\n\n" + in + "\n");
+//	}
 
 }

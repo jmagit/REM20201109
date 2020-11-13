@@ -20,7 +20,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.amqp.Message;
 import com.example.demo.amqp.Store;
+import com.example.demo.domain.entities.dtos.CatalogoDTO;
 import com.example.demo.domain.entities.dtos.FilmShortDTO;
+import com.example.demo.proxies.CatalogoProxy;
+import com.example.demo.proxies.PeliculasProxy;
 
 @RestController
 @RequestMapping(path = "/demos")
@@ -39,23 +42,42 @@ public class DemosResource {
 		return "Adios " + nombre;
 	}
 
+//	@Autowired
+//	RestTemplate srv;
+//	
+//	@GetMapping(path="/pelis")
+//	public List<FilmShortDTO> pelis() {
+//		ResponseEntity<List<FilmShortDTO>> response = srv.exchange(
+//				"http://localhost:8001/peliculas?mode=short", 
+//				HttpMethod.GET,
+//				HttpEntity.EMPTY, 
+//				new ParameterizedTypeReference<List<FilmShortDTO>>() {
+//				});
+//		return response.getBody();
+//	}
+//	@GetMapping(path="/pelis/{id}")
+//	public FilmShortDTO pelis(@PathVariable int id) {
+//		return srv.getForObject("http://localhost:8001/peliculas/{id}?mode=short", FilmShortDTO.class, 1);
+////		return srv.getForObject("http://CATALOGO-SERVICE/peliculas/{id}?mode=short", FilmShortDTO.class, 1);
+//	}
+
 	@Autowired
-	RestTemplate srv;
+	PeliculasProxy proxy;
 	
 	@GetMapping(path="/pelis")
 	public List<FilmShortDTO> pelis() {
-		ResponseEntity<List<FilmShortDTO>> response = srv.exchange(
-				"http://localhost:8001/peliculas?mode=short", 
-				HttpMethod.GET,
-				HttpEntity.EMPTY, 
-				new ParameterizedTypeReference<List<FilmShortDTO>>() {
-				});
-		return response.getBody();
+		return proxy.getAll();
 	}
 	@GetMapping(path="/pelis/{id}")
 	public FilmShortDTO pelis(@PathVariable int id) {
-		return srv.getForObject("http://localhost:8001/peliculas/{id}?mode=short", FilmShortDTO.class, 1);
-//		return srv.getForObject("catalogo-service/peliculas/{id}?mode=short", FilmShortDTO.class, 1);
+		return proxy.getOne(1);
+	}
+
+//	@Autowired
+//	CatalogoProxy cataProxy;
+	@GetMapping(path="/catalogo")
+	public String catalogo() {
+		return proxy.getCatalogo();
 	}
 	
 	@GetMapping(path = "/params/{id}", params = {"!nom"})
